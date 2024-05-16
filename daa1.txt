@@ -1,0 +1,69 @@
+package daa;
+import java.util.Scanner;
+public class mergeSort {
+	static int a[] = new int[10];
+
+	public static void main(String[] args)
+	{
+		Scanner s = new Scanner(System.in);
+		System.out.println("enter the number of elements in array:");
+		int n = s.nextInt();
+		
+		System.out.println("enter the array elements:");
+		
+		for(int i=0; i<n; i++)
+		{
+			a[i] = s.nextInt();
+		}
+		
+		System.out.println("the elements are:");
+		for(int i=0; i<n; i++)
+		{
+			System.out.println(a[i]+" ");
+		}
+		long startTime = System.nanoTime();
+		mergeSort(0,n-1);
+		long stopTime= System.nanoTime();
+		long elapsedTime = stopTime - startTime;
+		mergeSort(0,n-1);
+		System.out.println("The sorted array elements are");
+		for( int i=0;i<n;i++)
+		{
+			System.out.println(+ a[i]);
+		}
+		System.out.println("time complexity for n =" + n + "is:" +(double)elapsedTime/1000000);
+			s.close();
+	}
+	
+	public static void mergeSort(int low, int high)
+	{
+		int mid;
+		if(low<high)
+		{
+			mid=(low+high)/2;
+			mergeSort(low,mid);
+			mergeSort(mid+1, high);
+            merge(low, mid, high);		
+		}
+	}
+	public static void merge(int low, int mid, int high)
+	{
+		int b[] = new int[10];
+		int i,j,k,h;
+		i=h=low;
+		j=mid+1;
+		while(h<=mid && j<=high)
+			    if(a[h]<a[j])
+				    b[i++] = a[h++];
+		    	else
+			    	b[i++] = a[j++];
+	    if(h>mid)
+	    	 for(k=j; k<=high; k++)
+	    		 b[i++]= a[k];
+	    else
+	    	 for(k=h; k<=mid; k++)
+	    		 b[i++] = a[k];
+	    for(k=low; k<=high; k++)
+	    	a[k] = b[k];
+	}
+}
